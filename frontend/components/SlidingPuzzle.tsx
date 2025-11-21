@@ -17,6 +17,10 @@ export default function SlidingPuzzle({ showTimer, onComplete }: SlidingPuzzlePr
   const [isComplete, setIsComplete] = useState(false)
   const [moveCount, setMoveCount] = useState(0)
 
+  // 3x3 puzzle constants
+  const GRID_SIZE = 3
+  const TILE_COUNT = GRID_SIZE * GRID_SIZE
+
   // Initialize puzzle
   useEffect(() => {
     initializePuzzle()
@@ -45,8 +49,8 @@ export default function SlidingPuzzle({ showTimer, onComplete }: SlidingPuzzlePr
     setBoard(newBoard!)
     
     // Find empty position
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
+    for (let i = 0; i < GRID_SIZE; i++) {
+      for (let j = 0; j < GRID_SIZE; j++) {
         if (newBoard![i][j] === 0) {
           setEmptyPos({ row: i, col: j })
         }
@@ -60,7 +64,7 @@ export default function SlidingPuzzle({ showTimer, onComplete }: SlidingPuzzlePr
   }
 
   const generateRandomBoard = (): Board => {
-    const numbers = Array.from({ length: 16 }, (_, i) => i)
+    const numbers = Array.from({ length: TILE_COUNT }, (_, i) => i)
     
     // Fisher-Yates shuffle
     for (let i = numbers.length - 1; i > 0; i--) {
@@ -69,8 +73,8 @@ export default function SlidingPuzzle({ showTimer, onComplete }: SlidingPuzzlePr
     }
 
     const board: Board = []
-    for (let i = 0; i < 4; i++) {
-      board.push(numbers.slice(i * 4, (i + 1) * 4))
+    for (let i = 0; i < GRID_SIZE; i++) {
+      board.push(numbers.slice(i * GRID_SIZE, (i + 1) * GRID_SIZE))
     }
     
     return board
@@ -80,6 +84,7 @@ export default function SlidingPuzzle({ showTimer, onComplete }: SlidingPuzzlePr
     const flat = board.flat()
     let inversions = 0
     
+    // Count inversions (pairs where larger number comes before smaller)
     for (let i = 0; i < flat.length; i++) {
       if (flat[i] === 0) continue
       for (let j = i + 1; j < flat.length; j++) {
@@ -88,22 +93,14 @@ export default function SlidingPuzzle({ showTimer, onComplete }: SlidingPuzzlePr
       }
     }
     
-    // Find row of empty tile from bottom
-    let emptyRow = 0
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        if (board[i][j] === 0) {
-          emptyRow = 4 - i
-        }
-      }
-    }
-    
-    // For 4x4 puzzle: solvable if inversions + empty row from bottom is odd
-    return (inversions + emptyRow) % 2 === 1
+    // For 3x3 puzzle (odd grid width):
+    // Puzzle is solvable if the number of inversions is EVEN
+    return inversions % 2 === 0
   }
 
   const checkWin = (board: Board): boolean => {
-    const target = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]
+    // Goal: 1,2,3,4,5,6,7,8,0 (0 at bottom right)
+    const target = [1, 2, 3, 4, 5, 6, 7, 8, 0]
     const flat = board.flat()
     return flat.every((val, idx) => val === target[idx])
   }
@@ -263,10 +260,10 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   board: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 100px)',
-    gridTemplateRows: 'repeat(4, 100px)',
-    gap: '8px',
-    padding: '16px',
+    gridTemplateColumns: 'repeat(3, 110px)',
+    gridTemplateRows: 'repeat(3, 110px)',
+    gap: '10px',
+    padding: '20px',
     background: '#f0f0f0',
     borderRadius: '12px',
     boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.1)',
@@ -275,12 +272,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: '2rem',
+    fontSize: '2.5rem',
     fontWeight: 'bold',
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: 'white',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
     transition: 'transform 0.1s, box-shadow 0.1s',
     userSelect: 'none' as const,
   },

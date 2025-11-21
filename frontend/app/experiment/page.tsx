@@ -204,7 +204,7 @@ export default function Experiment() {
             <h3 style={styles.instructionsTitle}>How it works:</h3>
             <ul style={styles.instructionsList}>
               <li>You will complete the puzzle <strong>two times</strong></li>
-              <li>Numbers should be arranged from 1-15, with the empty space at the bottom right</li>
+              <li>Arrange numbers from 1-8, with the empty space at the bottom right</li>
               <li>Click on tiles adjacent to the empty space to move them</li>
               <li>One puzzle will show a timer, one won't (randomly assigned)</li>
               <li>Try your best on both attempts!</li>
@@ -260,7 +260,7 @@ export default function Experiment() {
             </p>
           )}
           <p style={styles.instructions}>
-            Arrange the numbers in order from 1 to 15. Click on a tile adjacent to the empty space to move it.
+            Arrange the numbers in order from 1 to 8. Click on a tile adjacent to the empty space to move it.
           </p>
           <SlidingPuzzle 
             key={puzzleKey}

@@ -11,7 +11,7 @@ This project consists of:
 
 ## Experiment Design
 
-This is a **within-subjects** experiment where each participant completes the puzzle under both conditions:
+This is a **within-subjects** experiment where each participant completes a 3×3 sliding puzzle under both conditions:
 1. **With Timer**: Solve the puzzle with a visible stopwatch
 2. **Without Timer**: Solve the puzzle without seeing the time
 
