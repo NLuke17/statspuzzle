@@ -145,11 +145,17 @@ export default function SlidingPuzzle({ showTimer, onComplete }: SlidingPuzzlePr
     <div style={styles.container}>
       {showTimer && (
         <div style={styles.timerContainer}>
-          <div style={styles.timer}>
-            Time: {formatTime(elapsedTime)}
+          <div style={styles.timerBox}>
+            <div style={styles.timerLabel}>⏱️ TIME</div>
+            <div style={styles.timerDisplay}>
+              {formatTime(elapsedTime)}
+            </div>
           </div>
-          <div style={styles.moves}>
-            Moves: {moveCount}
+          <div style={styles.movesBox}>
+            <div style={styles.movesLabel}>MOVES</div>
+            <div style={styles.movesDisplay}>
+              {moveCount}
+            </div>
           </div>
         </div>
       )}
@@ -201,20 +207,59 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: 'flex',
     flexDirection: 'column' as const,
     alignItems: 'center',
-    gap: '24px',
+    gap: '32px',
   },
   timerContainer: {
     display: 'flex',
-    gap: '32px',
-    fontSize: '1.5rem',
+    gap: '24px',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  timerBox: {
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    padding: '20px 32px',
+    borderRadius: '16px',
+    boxShadow: '0 8px 24px rgba(102, 126, 234, 0.4)',
+    textAlign: 'center' as const,
+    minWidth: '200px',
+    border: '3px solid white',
+  },
+  timerLabel: {
+    fontSize: '0.9rem',
+    fontWeight: '700',
+    color: 'rgba(255,255,255,0.9)',
+    letterSpacing: '1px',
+    marginBottom: '8px',
+  },
+  timerDisplay: {
+    fontSize: '2.5rem',
     fontWeight: 'bold',
-    color: '#667eea',
-  },
-  timer: {
+    color: 'white',
     fontFamily: 'monospace',
+    textShadow: '0 2px 4px rgba(0,0,0,0.2)',
   },
-  moves: {
+  movesBox: {
+    background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    padding: '20px 32px',
+    borderRadius: '16px',
+    boxShadow: '0 8px 24px rgba(245, 87, 108, 0.4)',
+    textAlign: 'center' as const,
+    minWidth: '180px',
+    border: '3px solid white',
+  },
+  movesLabel: {
+    fontSize: '0.9rem',
+    fontWeight: '700',
+    color: 'rgba(255,255,255,0.9)',
+    letterSpacing: '1px',
+    marginBottom: '8px',
+  },
+  movesDisplay: {
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
+    color: 'white',
     fontFamily: 'monospace',
+    textShadow: '0 2px 4px rgba(0,0,0,0.2)',
   },
   board: {
     display: 'grid',
