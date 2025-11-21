@@ -197,7 +197,7 @@ export default function Experiment() {
         <div style={styles.card}>
           <h1 style={styles.title}>Welcome to the Sliding Puzzle Experiment</h1>
           <p style={styles.description}>
-            Thank you for participating! In this experiment, you'll solve a 4×4 sliding puzzle twice.
+            Thank you for participating! In this experiment, you'll solve a 3×3 sliding puzzle twice.
           </p>
           
           <div style={styles.instructionsBox}>
@@ -219,7 +219,7 @@ export default function Experiment() {
           </button>
 
           <p style={styles.hint}>
-            Estimated time: 5-10 minutes
+            Estimated time: 3-5 minutes
           </p>
         </div>
       </main>
